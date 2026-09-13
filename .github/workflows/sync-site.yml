@@ -1,0 +1,36 @@
+name: Sync OP CARD VAULT
+
+on:
+  schedule:
+    # 10:15, 15:15, 18:15, 21:15 JST every day
+    - cron: '15 1,6,9,12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download the latest published files
+        run: |
+          curl --fail --silent --show-error --location \
+            https://raw.githubusercontent.com/anadayo/pokeca-vault/main/onepiece-card-vault/index.html \
+            --output index.html
+          curl --fail --silent --show-error --location \
+            https://raw.githubusercontent.com/anadayo/pokeca-vault/main/onepiece-card-vault/cards.json \
+            --output cards.json
+          curl --fail --silent --show-error --location \
+            https://raw.githubusercontent.com/anadayo/pokeca-vault/main/onepiece-card-vault/assets/ogp.png \
+            --output ogp.png
+
+      - name: Publish changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: sync latest OP CARD VAULT data'
+          file_pattern: index.html cards.json ogp.png
