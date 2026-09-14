@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>ONE PIECE CARD VAULT — ワンピカード相場チェッカー｜メルカリ成約価格をワンタップ確認 & 投資シミュレーター</title>
-<meta name="description" content="ワンピカードの相場・成約価格をワンタップでチェック。買取注目カード200種類のメルカリ相場確認と、5万円/10万円コースの売買シミュレーション・損益管理がスマホひとつでできる無料ツールです。">
+<meta name="description" content="ワンピカードの相場・成約価格をワンタップでチェック。買取注目カード200種類のメルカリ相場確認と、5万円/10万円/30万円/50万円コースの売買シミュレーション・損益管理がスマホひとつでできる無料ツールです。">
 <meta property="og:title" content="ONE PIECE CARD VAULT — ワンピカード価格比較 & 投資シミュレーター">
 <meta property="og:description" content="買取注目カード200種類の売買シミュレーションと損益管理ができるワンピカード投資ツール。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://anadayo.github.io/onepiece-card-vault/">
-<meta property="og:image" content="https://anadayo.github.io/onepiece-card-vault/assets/ogp.png">
+<meta property="og:image" content="https://anadayo.github.io/onepiece-card-vault/ogp.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://anadayo.github.io/onepiece-card-vault/assets/ogp.png">
+<meta name="twitter:image" content="https://anadayo.github.io/onepiece-card-vault/ogp.png">
 <meta name="twitter:creator" content="@ana_wasborn">
 <link rel="canonical" href="https://anadayo.github.io/onepiece-card-vault/">
 
@@ -518,6 +518,11 @@ nav{
 </style>
 </head>
 <body>
+<script>
+if (location.hostname === 'anadayo.github.io' && location.pathname.startsWith('/pokeca-vault/onepiece-card-vault')) {
+  location.replace('https://anadayo.github.io/onepiece-card-vault/' + location.search + location.hash);
+}
+</script>
 
 <!-- ================= ヘッダー ================= -->
 <header>
@@ -706,7 +711,7 @@ nav{
 <footer>
   <p>※ 掲載する販売・買取価格は公開ページから定期取得した参考値です。変動率・価格推移・損益表示はシミュレーションを含み、利益を保証するものではありません。売買前に各カードの「メルカリの成約相場を見る」および各店舗で最新価格をご確認ください。</p>
   <p>※ 本サイトのメルカリへのリンクにはアフィリエイト広告（PR）を含みます。</p>
-  <p style="margin-top:8px">姉妹サイト: <a href="../" style="color:var(--muted)">POKÉCA VAULT</a> ・ <a href="../tsume-pokepoke/" style="color:var(--muted)">🧩 詰めポケポケ — ポケポケのリーサルパズル</a></p>
+  <p style="margin-top:8px">姉妹サイト: <a href="https://anadayo.github.io/pokeca-vault/" style="color:var(--muted)">POKÉCA VAULT</a> ・ <a href="https://anadayo.github.io/pokeca-vault/tsume-pokepoke/" style="color:var(--muted)">🧩 詰めポケポケ — ポケポケのリーサルパズル</a></p>
   <p style="margin-top:8px">運営: <a href="https://x.com/ana_wasborn" target="_blank" rel="noopener" style="color:var(--muted)">𝕏 @ana_wasborn</a></p>
 </footer>
 
@@ -5020,10 +5025,12 @@ function renderHome(){
   $('#homeUpsell').innerHTML = `
     <div class="course-box">
       <div class="section-title" style="margin-bottom:6px">スタート資金</div>
-      <p class="muted">5万円 / 10万円の疑似資金でワンピカード投資を始められます。買うと所持金が減り、売ると所持金に戻ります。</p>
+      <p class="muted">5万円 / 10万円 / 30万円 / 50万円の疑似資金でワンピカード投資を始められます。買うと所持金が減り、売ると所持金に戻ります。</p>
       <div class="course-buttons">
         <button class="btn btn-gold" onclick="startCourse(50000)">5万円コース</button>
         <button class="btn btn-ghost" onclick="startCourse(100000)">10万円コース</button>
+        <button class="btn btn-ghost" onclick="startCourse(300000)">30万円コース</button>
+        <button class="btn btn-ghost" onclick="startCourse(500000)">50万円コース</button>
       </div>
     </div>`;
 }
@@ -5194,6 +5201,19 @@ function renderPlan(){
       <div class="plan-price num">¥100,000</div>
       <ul class="plan-feats"><li>少し高額なカードも狙える</li><li>買取注目カード200種類で売買</li><li>売却益は所持金に反映</li></ul>
       <button class="btn btn-ghost btn-block" onclick="startCourse(100000)">10万円で始める</button>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">30万円コース</div>
+      <div class="plan-price num">¥300,000</div>
+      <ul class="plan-feats"><li>高額パラレルまで選択肢を拡大</li><li>複数カードの組み合わせを比較</li><li>所持金・評価額・損益を管理</li></ul>
+      <button class="btn btn-ghost btn-block" onclick="startCourse(300000)">30万円で始める</button>
+    </div>
+    <div class="plan-card reco">
+      <span class="reco-tag">HIGH VALUE</span>
+      <div class="plan-name">50万円コース</div>
+      <div class="plan-price num">¥500,000</div>
+      <ul class="plan-feats"><li>コミパラなど高額帯を検討</li><li>分散保有と一点集中を比較</li><li>売却益は所持金に反映</li></ul>
+      <button class="btn btn-gold btn-block" onclick="startCourse(500000)">50万円で始める</button>
     </div>
     <div class="plan-card">
       <div class="plan-name">現在の状態</div>
@@ -5577,7 +5597,7 @@ function openDetail(cardId, detailPlacement='direct'){
     if (p <= 0){ toast('購入単価を入力してください'); return; }
     const res = buyCard(cardId, q, p, $('#buyMemo').value.trim());
     if (!res.ok){
-      if (res.reason === 'no-course') { closeSheet(); go('plan'); toast('先に5万円/10万円コースを選んでください'); return; }
+      if (res.reason === 'no-course') { closeSheet(); go('plan'); toast('先に5万円/10万円/30万円/50万円コースを選んでください'); return; }
       if (res.reason === 'cash') { toast('所持金が足りません（不足 ' + yen(res.shortage) + '）'); return; }
       toast('購入処理に失敗しました'); return;
     }
