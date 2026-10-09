@@ -17,20 +17,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download the latest published files
+      - name: Download the latest published files and SEO pages
         run: |
-          curl --fail --silent --show-error --location \
-            https://raw.githubusercontent.com/anadayo/pokeca-vault/main/onepiece-card-vault/index.html \
-            --output index.html
-          curl --fail --silent --show-error --location \
-            https://raw.githubusercontent.com/anadayo/pokeca-vault/main/onepiece-card-vault/cards.json \
-            --output cards.json
-          curl --fail --silent --show-error --location \
-            https://raw.githubusercontent.com/anadayo/pokeca-vault/main/onepiece-card-vault/assets/ogp.png \
-            --output ogp.png
+          git clone --depth 1 --filter=blob:none https://github.com/anadayo/pokeca-vault.git /tmp/pokeca-vault-source
+          cp /tmp/pokeca-vault-source/onepiece-card-vault/index.html index.html
+          cp /tmp/pokeca-vault-source/onepiece-card-vault/cards.json cards.json
+          cp /tmp/pokeca-vault-source/onepiece-card-vault/assets/ogp.png ogp.png
+          cp /tmp/pokeca-vault-source/onepiece-card-vault/sitemap.xml sitemap.xml
+          cp /tmp/pokeca-vault-source/onepiece-card-vault/robots.txt robots.txt
+          cp -R /tmp/pokeca-vault-source/onepiece-card-vault/cards ./cards
+          test "$(find cards -mindepth 2 -name index.html | wc -l)" -eq 100
 
       - name: Publish changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'chore: sync latest OP CARD VAULT data'
-          file_pattern: index.html cards.json ogp.png
+          file_pattern: index.html cards.json ogp.png sitemap.xml robots.txt cards/**
