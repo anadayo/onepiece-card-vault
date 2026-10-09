@@ -25,7 +25,8 @@ jobs:
           cp /tmp/pokeca-vault-source/onepiece-card-vault/assets/ogp.png ogp.png
           cp /tmp/pokeca-vault-source/onepiece-card-vault/sitemap.xml sitemap.xml
           cp /tmp/pokeca-vault-source/onepiece-card-vault/robots.txt robots.txt
-          cp -R /tmp/pokeca-vault-source/onepiece-card-vault/cards ./cards
+          mkdir -p cards
+          cp -R /tmp/pokeca-vault-source/onepiece-card-vault/cards/. ./cards/
           test "$(find cards -mindepth 2 -name index.html | wc -l)" -eq 100
 
       - name: Publish changes
