@@ -19,18 +19,22 @@ jobs:
 
       - name: Download the latest published files and SEO pages
         run: |
-          git clone --depth 1 --filter=blob:none https://github.com/anadayo/pokeca-vault.git /tmp/pokeca-vault-source
+          git clone --depth 1 https://github.com/anadayo/pokeca-vault.git /tmp/pokeca-vault-source
           cp /tmp/pokeca-vault-source/onepiece-card-vault/index.html index.html
           cp /tmp/pokeca-vault-source/onepiece-card-vault/cards.json cards.json
+          cp /tmp/pokeca-vault-source/onepiece-card-vault/adsense.js adsense.js
+          cp /tmp/pokeca-vault-source/onepiece-card-vault/privacy.html privacy.html
           cp /tmp/pokeca-vault-source/onepiece-card-vault/assets/ogp.png ogp.png
           cp /tmp/pokeca-vault-source/onepiece-card-vault/sitemap.xml sitemap.xml
           cp /tmp/pokeca-vault-source/onepiece-card-vault/robots.txt robots.txt
           mkdir -p cards
           cp -R /tmp/pokeca-vault-source/onepiece-card-vault/cards/. ./cards/
-          test "$(find cards -mindepth 2 -name index.html | wc -l)" -eq 100
+          mkdir -p data
+          cp -R /tmp/pokeca-vault-source/onepiece-card-vault/data/. ./data/
+          test "$(find cards -mindepth 2 -name index.html | wc -l)" -ge 100
 
       - name: Publish changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'chore: sync latest OP CARD VAULT data'
-          file_pattern: index.html cards.json ogp.png sitemap.xml robots.txt cards/**
+          file_pattern: index.html cards.json adsense.js privacy.html ogp.png sitemap.xml robots.txt cards/** data/**
